@@ -1,5 +1,15 @@
 const formularioUI = document.querySelector('#formulario');
 const listaActividadesUI = document.getElementById('listaActividades');
+
+window.addEventListener ('load', function() {
+  document.getElementById("agregar").addEventListener("click", function() {
+    alert("Tu actividad fue agregada!");
+  })
+})
+
+
+
+
 let arrayActividades = [];
 
 
@@ -12,7 +22,14 @@ const CrearItem = (actividad) => {
   arrayActividades.push(item);
 
   return item;
+
 }
+
+
+
+
+
+
 
 const GuardarDB = () => {
 
@@ -27,12 +44,13 @@ const PintarDB = () => {
   listaActividadesUI.innerHTML = '';
 
   arrayActividades = JSON.parse(localStorage.getItem('Rutina'));
+
   
   if(arrayActividades === null){
     arrayActividades = [];
   }else{
-
     arrayActividades.forEach(element => {
+      console.log('element');
 
       if(element.estado){
         listaActividadesUI.innerHTML += `<div class="alert alert-success" role="alert"><i class="material-icons float-left mr-2">accessibility</i><b>${element.actividad}</b> - ${element.estado}<span class="float-right"><i class="material-icons">done</i><i class="material-icons">delete</i></span></div>`
@@ -40,9 +58,11 @@ const PintarDB = () => {
         listaActividadesUI.innerHTML += `<div class="alert alert-danger" role="alert"><i class="material-icons float-left mr-2">accessibility</i><b>${element.actividad}</b> - ${element.estado}<span class="float-right"><i class="material-icons">done</i><i class="material-icons">delete</i></span></div>`
       }
     });
-
+  
   }
 }
+
+
 
 const EliminarDB = (actividad) => {
   let indexArray;
@@ -75,6 +95,8 @@ formularioUI.addEventListener('submit', (e) => {
   e.preventDefault();
   let actividadUI = document.querySelector('#actividad').value;
 
+  console.log(actividadUI);
+
   CrearItem(actividadUI);
   GuardarDB();
 
@@ -99,3 +121,4 @@ listaActividadesUI.addEventListener('click', (e) => {
   }
 
 });
+
